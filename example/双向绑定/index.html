@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <button onclick="show()">显示v1</button>
+    <button onclick="add()">加一</button>
+    <script src="./index.js"></script>
+    <script>
+
+        const el = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    v1: ''
+                }
+            },
+            render() {
+                return `<input value="${this.data.v1}"/>`;
+            }
+        })
+
+        function add() {
+            el.data.v1 += '1';
+        }
+
+        function show() {
+            alert(el.data.v1);
+        }
+    </script>
+</body>
+</html>
