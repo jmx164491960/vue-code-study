@@ -43,7 +43,7 @@ class Dep {
     subs = [];
     notify() {
         this.subs.forEach((sub) => {
-            sub.update();
+            sub.update(this.obj, this.key);
         });
     }
     depend() {
@@ -64,8 +64,12 @@ class Watcher {
         this.get(this);
         this.node = document.createElement('div');
         parentNode.append(this.node);
-        this.update = () => {
+        this.update = (obj, key) => {
             const node  = parseDom(getTpl.call(vm));
+            node.addEventListener('change', (event) => {
+                debugger
+                obj[key] = event.target.value;
+            })
             parentNode.replaceChild(node, this.node);
             this.node = node;
         }
@@ -89,6 +93,8 @@ class Watcher {
 function defineReactive(obj, key, val) {
 
     let dep = new Dep();
+    dep.obj = obj;
+    dep.key = key;
 
     const property = Object.getOwnPropertyDescriptor(obj, key)
     if (property && property.configurable === false) {
