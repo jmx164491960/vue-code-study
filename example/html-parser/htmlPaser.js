@@ -290,18 +290,20 @@ window.parse = function(template, options) {
       const trimText = text.trim();
       const children = currentParent.children
       let res;
-      if (text !== ' ' && (res = parseText(trimText))) {
-        children.push({
-          type:2,
-          expression: res.expression,
-          text,
-          tokens: res.tokens
-        })
-      } else if (text !== ' ') {
-        children.push({
-          type: 2,
-          text
-        })
+      if (trimText) {
+        if (trimText !== ' ' && (res = parseText(trimText))) {
+          children.push({
+            type:2,
+            expression: res.expression,
+            text,
+            tokens: res.tokens
+          })
+        } else if (trimText !== ' ') {
+          children.push({
+            type: 2,
+            text
+          })
+        }
       }
     },
     comment() {
